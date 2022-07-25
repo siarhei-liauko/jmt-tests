@@ -26,7 +26,7 @@ public class TemplateParserImplTest {
                 "userName", "Player 1",
                 "serviceName", "oursupersite.com"
         );
-        String expectedResult = "Hello Player 1, welcome to oursupersite.com";
+        String expectedResult = "Hello Player 1, welcome to oursupersite.com!";
 
         String actualResult = templateParser.parse(TEMPLATE, params);
 
@@ -40,7 +40,7 @@ public class TemplateParserImplTest {
                 "serviceName", "oursupersite.com",
                 "extra", "extra param"
         );
-        String expectedResult = "Hello Player 1, welcome to oursupersite.com";
+        String expectedResult = "Hello Player 1, welcome to oursupersite.com!";
 
         String actualResult = templateParser.parse(TEMPLATE, params);
 
@@ -64,7 +64,7 @@ public class TemplateParserImplTest {
                 "userName", "Player 1",
                 "serviceName", "#{our-service}"
         );
-        String expectedResult = "Hello Player 1, welcome to #{our-service}";
+        String expectedResult = "Hello Player 1, welcome to #{our-service}!";
 
         String actualResult = templateParser.parse(TEMPLATE, params);
 
@@ -73,12 +73,12 @@ public class TemplateParserImplTest {
 
     @Test
     public void testParseMistypedTemplate() {
-        String template = "Hello #{userName, welcome to #{service}!";
+        String template = "Hello #{userName, welcome to #{serviceName}!";
         Map<String, String> params = Map.of(
                 "userName", "Player 1",
                 "serviceName", "oursupersite.com"
         );
-        String expectedResult = "Hello #{userName, welcome to #{service}!";
+        String expectedResult = "Hello #{userName, welcome to oursupersite.com!";
 
         String actualResult = templateParser.parse(template, params);
 
