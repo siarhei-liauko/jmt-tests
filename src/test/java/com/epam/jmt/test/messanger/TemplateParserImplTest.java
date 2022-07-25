@@ -70,4 +70,18 @@ public class TemplateParserImplTest {
 
         assertEquals(expectedResult, actualResult, "Actual message should be the same as expected message");
     }
+
+    @Test
+    public void testParseMistypedTemplate() {
+        String template = "Hello #{userName, welcome to #{service}!";
+        Map<String, String> params = Map.of(
+                "userName", "Player 1",
+                "serviceName", "oursupersite.com"
+        );
+        String expectedResult = "Hello #{userName, welcome to #{service}!";
+
+        String actualResult = templateParser.parse(template, params);
+
+        assertEquals(expectedResult, actualResult, "Actual message should be the same as expected message");
+    }
 }
